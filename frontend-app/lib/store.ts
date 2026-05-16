@@ -14,6 +14,13 @@ interface CartStore {
   total: number;
 }
 
+interface WishlistStore {
+  wishlistItems: number[];
+  addToWishlist: (productId: number) => void;
+  removeFromWishlist: (productId: number) => void;
+  isInWishlist: (productId: number) => boolean;
+}
+
 export const useCartStore = create<CartStore>()(
   persist(
     (set, get) => ({
@@ -43,6 +50,28 @@ export const useCartStore = create<CartStore>()(
     }),
     {
       name: 'cart-storage',
+    }
+  )
+);
+
+export const useWishlistStore = create<WishlistStore>()(
+  persist(
+    (set, get) => ({
+      wishlistItems: [],
+      addToWishlist: (productId) => {
+        if (!get().wishlistItems.includes(productId)) {
+          set({ wishlistItems: [...get().wishlistItems, productId] });
+        }
+      },
+      removeFromWishlist: (productId) => {
+        set({
+          wishlistItems: get().wishlistItems.filter((id) => id !== productId),
+        });
+      },
+      isInWishlist: (productId) => get().wishlistItems.includes(productId),
+    }),
+    {
+      name: 'wishlist-storage',
     }
   )
 );
