@@ -3,20 +3,16 @@
 import { useCartStore } from '@/lib/store';
 import { ShoppingCart, Trash2, ChevronRight, CreditCard } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useStore } from '@/lib/useStore';
 
 export default function CartPage() {
-  const { items, removeItem, total, clearCart } = useCartStore();
-  const [mounted, setHydrated] = useState(false);
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
-  if (!mounted) return null;
+  const cartItems = useStore(useCartStore, (state) => state.items);
+  const { removeItem, clearCart } = useCartStore();
+  
+  const items = cartItems || [];
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const handleCheckout = async () => {
-    // Logic for placing order via API would go here
     alert('Order processing logic goes here!');
   };
 
@@ -110,6 +106,6 @@ export default function CartPage() {
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 }

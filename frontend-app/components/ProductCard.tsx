@@ -3,18 +3,14 @@
 import { Product } from '@/lib/api';
 import Link from 'next/link';
 import { useWishlistStore, useCartStore } from '@/lib/store';
-import { useEffect, useState } from 'react';
+import { useStore } from '@/lib/useStore';
 
 export default function ProductCard({ product }: { product: Product }) {
-  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlistStore();
+  const wishlistItems = useStore(useWishlistStore, (state) => state.wishlistItems);
+  const { addToWishlist, removeFromWishlist } = useWishlistStore();
   const { addItem } = useCartStore();
-  const [mounted, setMounted] = useState(false);
   
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isFavorite = mounted ? isInWishlist(product.id) : false;
+  const isFavorite = wishlistItems?.includes(product.id) || false;
 
   const toggleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -38,17 +34,12 @@ export default function ProductCard({ product }: { product: Product }) {
     return sampleImages[key];
   };
 
-  if (!mounted) {
-    return (
-      <div className="border border-amber-100 rounded-2xl h-[400px] animate-pulse bg-gray-50"></div>
-    );
-  }
-
   return (
     <div className="group border border-amber-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 bg-white relative">
       <button 
         onClick={toggleWishlist}
         className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/80 hover:bg-white shadow-sm transition-colors group"
+        aria-label={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
       >
         <svg 
           xmlns="http://www.w3.org/2000/svg" 

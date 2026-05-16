@@ -5,23 +5,22 @@ import { Heart, ShoppingBag, Trash2, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState, useMemo } from 'react';
 import { getProducts, Product } from '@/lib/api';
+import { useStore } from '@/lib/useStore';
 
 export default function WishlistPage() {
-  const { wishlistItems, removeFromWishlist } = useWishlistStore();
+  const wishlistItems = useStore(useWishlistStore, (state) => state.wishlistItems);
+  const { removeFromWishlist } = useWishlistStore();
   const { addItem } = useCartStore();
   const [allProducts, setAllProducts] = useState<Product[]>([]);
-  const [mounted, setHydrated] = useState(false);
 
   useEffect(() => {
-    setHydrated(true);
     getProducts().then(setAllProducts).catch(console.error);
   }, []);
 
   const favoriteProducts = useMemo(() => {
-    return allProducts.filter(p => wishlistItems.includes(p.id));
+    const ids = wishlistItems || [];
+    return allProducts.filter(p => ids.includes(p.id));
   }, [allProducts, wishlistItems]);
-
-  if (!mounted) return null;
 
   return (
     <main className="bg-gray-50 min-h-screen pb-20">
@@ -73,6 +72,6 @@ export default function WishlistPage() {
           </div>
         )}
       </div>
-    </div>
+    </main>
   );
 }

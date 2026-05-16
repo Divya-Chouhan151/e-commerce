@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useWishlistStore, useCartStore } from '@/lib/store';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { 
   Menu, 
   Home, 
@@ -12,36 +12,15 @@ import {
   User
 } from 'lucide-react';
 import Sidebar from './Sidebar';
+import { useStore } from '@/lib/useStore';
 
 export default function Navbar() {
-  const wishlistCount = useWishlistStore((state) => state.wishlistItems.length);
-  const cartItemsCount = useCartStore((state) => state.items.length);
-  const [mounted, setMounted] = useState(false);
+  const wishlistItems = useStore(useWishlistStore, (state) => state.wishlistItems);
+  const cartItems = useStore(useCartStore, (state) => state.items);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Show a simplified placeholder during server-side rendering and initial client hydration
-  // to avoid "Server HTML did not match Client properties" errors.
-  if (!mounted) {
-    return (
-      <nav className="bg-white border-b border-amber-100 p-4 sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto flex justify-between items-center gap-4">
-          <div className="flex items-center space-x-4">
-            <div className="p-2 text-amber-800"><Menu size={28} /></div>
-            <span className="text-2xl font-black tracking-tighter text-amber-800">HUNAR</span>
-          </div>
-          <div className="flex-1 max-w-2xl bg-gray-50 h-10 rounded-lg animate-pulse"></div>
-          <div className="flex space-x-6">
-            <div className="w-8 h-8 bg-gray-100 rounded-full"></div>
-            <div className="w-8 h-8 bg-gray-100 rounded-full"></div>
-          </div>
-        </div>
-      </nav>
-    );
-  }
+  const wishlistCount = wishlistItems?.length || 0;
+  const cartItemsCount = cartItems?.length || 0;
 
   return (
     <>
@@ -53,6 +32,7 @@ export default function Navbar() {
             <button 
               onClick={() => setSidebarOpen(true)}
               className="p-2 hover:bg-amber-50 rounded-full transition-colors text-amber-800"
+              aria-label="Open Menu"
             >
               <Menu size={28} />
             </button>
@@ -102,7 +82,7 @@ export default function Navbar() {
               <div className="p-2 group-hover:bg-amber-50 rounded-full transition-colors relative">
                 <User size={24} className="text-gray-700 group-hover:text-amber-800" />
               </div>
-              <span className="text-[10px] font-bold text-gray-500 group-hover:text-amber-800 uppercase tracking-widest">Login</span>
+              <span className="text-[10px] font-bold text-gray-500 group-hover:text-amber-800 uppercase tracking-widest hidden md:block">Login</span>
             </Link>
 
           </div>
