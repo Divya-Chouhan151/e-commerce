@@ -70,8 +70,9 @@ export default function WishlistPage() {
               </div>
             ))}
           </div>
-        )}
-      </div>
-    </main>
-  );
-}
+          )}
+          </div>
+          </main>
+          );
+          }
+

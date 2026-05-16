@@ -89,6 +89,6 @@ export default function RegisterPage() {
           Already have an account? <Link href="/login" className="text-amber-800 hover:underline font-semibold">Log in here</Link>
         </p>
       </div>
-    </div>
+    </main>
   );
 }
