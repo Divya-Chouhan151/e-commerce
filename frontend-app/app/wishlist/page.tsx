@@ -24,7 +24,7 @@ export default function WishlistPage() {
   if (!mounted) return null;
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-20">
+    <main className="bg-gray-50 min-h-screen pb-20">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold text-amber-900 mb-8 flex items-center">
           <Heart className="mr-2 text-red-500 fill-current" /> My Wishlist

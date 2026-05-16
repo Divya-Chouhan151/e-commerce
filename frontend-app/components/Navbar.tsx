@@ -16,13 +16,15 @@ import Sidebar from './Sidebar';
 export default function Navbar() {
   const wishlistCount = useWishlistStore((state) => state.wishlistItems.length);
   const cartItemsCount = useCartStore((state) => state.items.length);
-  const [mounted, setHydrated] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    setHydrated(true);
+    setMounted(true);
   }, []);
 
+  // Show a simplified placeholder during server-side rendering and initial client hydration
+  // to avoid "Server HTML did not match Client properties" errors.
   if (!mounted) {
     return (
       <nav className="bg-white border-b border-amber-100 p-4 sticky top-0 z-50 shadow-sm">
@@ -33,8 +35,8 @@ export default function Navbar() {
           </div>
           <div className="flex-1 max-w-2xl bg-gray-50 h-10 rounded-lg animate-pulse"></div>
           <div className="flex space-x-6">
-            <div className="w-8 h-8 bg-gray-100 rounded-full animate-pulse"></div>
-            <div className="w-8 h-8 bg-gray-100 rounded-full animate-pulse"></div>
+            <div className="w-8 h-8 bg-gray-100 rounded-full"></div>
+            <div className="w-8 h-8 bg-gray-100 rounded-full"></div>
           </div>
         </div>
       </nav>
@@ -84,14 +86,14 @@ export default function Navbar() {
               href="/wishlist" 
               icon={<Heart size={24} />} 
               label="Wishlist" 
-              badgeCount={mounted ? wishlistCount : 0}
+              badgeCount={wishlistCount}
             />
 
             <NavIcon 
               href="/cart" 
               icon={<ShoppingCart size={24} />} 
               label="Cart" 
-              badgeCount={mounted ? cartItemsCount : 0}
+              badgeCount={cartItemsCount}
             />
 
             <div className="h-8 w-[1px] bg-gray-200 hidden md:block" />

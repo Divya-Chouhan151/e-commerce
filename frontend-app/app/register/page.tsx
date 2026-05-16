@@ -39,7 +39,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-64px)] items-center justify-center p-4 bg-amber-50">
+    <main className="flex flex-col min-h-[calc(100vh-64px)] items-center justify-center p-4 bg-amber-50">
       <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md border border-amber-200">
         <h2 className="text-2xl font-bold mb-6 text-amber-900 text-center">Create an Account</h2>
         {message && (

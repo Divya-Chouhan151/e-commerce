@@ -10,7 +10,7 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
   }
 
   return (
-    <div className="bg-white min-h-screen pb-20">
+    <main className="bg-white min-h-screen pb-20">
       <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-12">
         {/* Left: Image */}
         <div className="md:w-1/2">

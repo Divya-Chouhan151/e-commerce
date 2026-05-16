@@ -21,7 +21,7 @@ export default function CartPage() {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-20">
+    <main className="bg-gray-50 min-h-screen pb-20">
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-bold text-amber-900 mb-8 flex items-center">
           <ShoppingCart className="mr-2" /> Shopping Cart

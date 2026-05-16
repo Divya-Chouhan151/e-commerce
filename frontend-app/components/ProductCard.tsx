@@ -14,6 +14,17 @@ export default function ProductCard({ product }: { product: Product }) {
     setMounted(true);
   }, []);
 
+  const isFavorite = mounted ? isInWishlist(product.id) : false;
+
+  const toggleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isFavorite) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product.id);
+    }
+  };
+
   const sampleImages: { [key: string]: string } = {
     'Sweater': 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=600',
     'Scarf': 'https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?auto=format&fit=crop&q=80&w=600',
