@@ -24,34 +24,48 @@ public class ProductServiceApplication {
         return args -> {
             if (productRepository.count() == 0) {
                 Product s1 = Product.builder()
-                        .title("Pure Wool Blue Sweater")
+                        .title("Pure Woollen Sweater")
                         .description("Hand-knitted with 100% organic wool. Warm and stylish.")
                         .price(BigDecimal.valueOf(45.99))
                         .stockQuantity(10)
                         .build();
 
                 Product s2 = Product.builder()
-                        .title("Cozy Red Winter Scarf")
+                        .title("Winter Scarfs")
                         .description("Traditional pattern scarf, perfect for heavy winters.")
                         .price(BigDecimal.valueOf(19.50))
                         .stockQuantity(25)
                         .build();
 
                 Product s3 = Product.builder()
-                        .title("Handmade Baby Blanket")
+                        .title("Handmade Baby Blankets")
                         .description("Softest yarn for your little one. Skin friendly.")
                         .price(BigDecimal.valueOf(29.99))
-                        .stockQuantity(5)
+                        .stockQuantity(20)
                         .build();
 
                 Product s4 = Product.builder()
-                        .title("Artisan Cardigan")
+                        .title("Artisan Cardigans")
                         .description("Elegant beige cardigan with wooden buttons.")
                         .price(BigDecimal.valueOf(55.00))
-                        .stockQuantity(8)
+                        .stockQuantity(20)
                         .build();
+                
+                Product s5 = Product.builder()
+                        .title("Handmade Gloves")
+                        .description("Skin Comforting gloves.")
+                        .price(BigDecimal.valueOf(200.00))
+                        .stockQuantity(30)
+                        .build(); 
+                
+                Product s6 = Product.builder()
+                        .title("Handmade Socks")
+                        .description("Skin Comforting socks.")
+                        .price(BigDecimal.valueOf(150.00))
+                        .stockQuantity(30)
+                        .build();                 
 
-                productRepository.saveAll(List.of(s1, s2, s3, s4));
+                productRepository.saveAll(List.of(s1, s2, s3, s4, s5, s6));
             }
         };
     }
